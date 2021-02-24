@@ -13,6 +13,7 @@ module.exports = function(client, message, Discord, args, prefix) {
       yes: "<:goodboi:786069262481621012>",
       no: "<:badboi:788537874140233759>"
     },
+    tree:require("./cmd.js").tree,
     workers: {
       text: {
         this: {

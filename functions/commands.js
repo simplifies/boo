@@ -53,9 +53,9 @@ module.exports = {
       reactions =
         options.messages.length > 1 ? ["⏪", "◀️", "⏹️", "▶️", "⏩"] : ["⏹️"],
       mainMessage = await message.channel.send(
-        `[${pages + 1}/${options.messages.length}] ${"○".repeat(
+        `${options.messages.length > 1 ? `[${pages + 1}/${options.messages.length}] ${"○".repeat(
           options.messages.length
-        ).replaceAt(pages, "●")}`,
+        ).replaceAt(pages, "●")}` : ""}`,
         options.messages[pages]
       );
     await Promise.all(reactions.map(r => mainMessage.react(r)));
@@ -101,9 +101,9 @@ module.exports = {
           break;
       }
       await mainMessage.edit(
-         `[${pages + 1}/${options.messages.length}] ${"○".repeat(
+       `${options.messages.length > 1 ? `[${pages + 1}/${options.messages.length}] ${"○".repeat(
           options.messages.length
-        ).replaceAt(pages, "●")}`,
+        ).replaceAt(pages, "●")}` : ""}`,
         options.type === "message"
           ? options.messages[pages]
           : {

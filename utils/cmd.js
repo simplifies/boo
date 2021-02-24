@@ -9,6 +9,7 @@ const tree = {
 };
 const cmd = (...args) => buildTree(args);
 const pcmd = (perms, ...args) => buildTree(args, perms);
+const ocmd = (...args) => buildTree(args, undefined, true);
 const rct = (...args) => {
   const callback = args.pop();
   const cursor = tree.rct;
@@ -22,7 +23,7 @@ const rct = (...args) => {
   });
 };
 
-const buildTree = (args, perms) => {
+const buildTree = (args, perms, owner) => {
   const callback = args.pop();
   const cursors = [];
 
@@ -41,6 +42,7 @@ const buildTree = (args, perms) => {
     cursor.callback = callback;
 
     if (perms) cursor.perms = perms;
+    if (owner) cursor.owner = true;
     cursors.push(cursor);
   });
 
@@ -76,6 +78,12 @@ const trigger = async (type, ctx, user, args) => {
           );
       }
     }
+    if (cursor.owner  === true && !ctx.client.owners.includes(user.id)) {
+      return await ctx.client.createMessage(
+        ctx,
+        ctx.client.createEmbed({color: ctx.client.color, description:`${ctx.emojis["no"]} This is an owner command only`})
+      );
+    }
     return await cursor.callback.apply({}, newArgs);
   } catch (err) {
     console.error(err);
@@ -88,5 +96,6 @@ module.exports = {
   pcmd,
   rct,
   trigger,
-  tree
+  tree,
+  ocmd
 };
