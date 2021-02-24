@@ -39,7 +39,14 @@ pcmd(
       })
     );
   }
-);
+).help({
+  name: "prefix",
+  description: "Changes prefix",
+  aliases: ["setprefix", "sp", "newprefix"],
+  usage: "[newprefix]",
+  category: "config"
+});
+
 pcmd(
   [
     require("discord.js").Permissions.FLAGS.SEND_MESSAGES,
@@ -127,4 +134,10 @@ pcmd(
       });
     });
   }
-);
+).help({
+  name: "settings",
+  description: "Settings menu",
+  aliases: ["config"],
+  usage: "",
+  category: "config"
+});

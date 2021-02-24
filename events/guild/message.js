@@ -7,33 +7,7 @@ module.exports = async (client, message, context) => {
       .slice(prefix.length)
       .trim()
       .split(/ +/g);
-    let ctx = {
-      client,
-      message,
-      channel: message.channel,
-      guild: message.guild,
-      Discord,
-      args,
-      guildPrefix: prefix,
-      commandFunctions: require("@functions.commands"),
-      canvasFunctions: require("@functions.canvas"),
-      emojis: {
-        yes: "<:goodboi:786069262481621012>",
-        no: "<:badboi:788537874140233759>"
-      },
-      workers: {
-        text: {
-          this: {
-            guild: {
-              settings: `${message.guild.name}'\s settings`,
-              help: {
-                settings: `React with the number which matches the setting you want to change`
-              }
-            }
-          }
-        }
-      }
-    };
+    let ctx = require("../../utils/ctx.js")(client, message, Discord, args, prefix)
     if (message.author.bot || message.channel.type === "dm") return;
     client.emit("level", message, ctx);
     if (!message.content.startsWith(prefix)) return;

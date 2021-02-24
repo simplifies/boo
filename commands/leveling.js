@@ -22,7 +22,7 @@ cmd("rank", "rankcard", async ctx => {
   let rank = await model.find();
   rank = rank
     .sort((b, a) => a.level - b.level)
-    .filter(u => client.users.cache.get(u.user).bot !== true);
+    .filter(u => client.users.cache.get(u.user) ? client.users.cache.get(u.user).bot !== true : u);
   rank = rank.indexOf(rank.find(r => r.user === user.id)) + 1;
   if (RankData.xp <= 100) RankData.xp = 100;
   context.fillStyle = "#37393F";
@@ -143,7 +143,7 @@ cmd("rank", "rankcard", async ctx => {
   context.fillStyle = "#7E7E7E";
   context.font = `bold 15px ${font}`;
   context.textAlign = "center";
-  context.fillText("RANK", 190, 100);
+  context.fillText("RANK", 195, 100);
   context.fillStyle = color;
   context.fillText(
     rank >= 1000 ? `#${(rank / 1000).toPrecision(3)}k` : `#${rank}`,
@@ -155,4 +155,10 @@ cmd("rank", "rankcard", async ctx => {
     `${user.id}-rank.png`
   );
   ctx.message.channel.send(attachment);
-});
+}).help({
+  name: "rank",
+  description: "Sends a users ran card",
+  aliases:["rankcard"],
+  usage:"[user]",
+  category:"leveling"
+})

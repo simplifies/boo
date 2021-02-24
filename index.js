@@ -22,7 +22,6 @@ let mongo = require("mongoose");
   { name: "createEmbed", value: functions.createEmbed },
   { name: "createMessage", value: functions.createMessage },
   { name: "xpCooldowns", value: new Set() },
-  { name: "responses", value: new Collection() },
   { name: "getPrefix", value: functions.getPrefix },
   { name: "getUserFromDb", value: functions.getUserFromDb },
   { name: "db", value: new (require("./classes/db.js"))() },
