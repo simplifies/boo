@@ -86,6 +86,7 @@ cmd("help", "h", async ctx => {
         Object.values(commands).map(({ help: { category } }) => category)
       )
     ];
+    
     cats
       .map(cat =>
         [

@@ -17,6 +17,7 @@ const client = new Client({
 let config = require("./config.json");
 let functions = require("./functions/client.js");
 let mongo = require("mongoose");
+const { tree } = require("./utils/cmd.js");
 [
   { name: "color", value: "#dbbddb" },
   { name: "createEmbed", value: functions.createEmbed },
@@ -26,13 +27,19 @@ let mongo = require("mongoose");
   { name: "getUserFromDb", value: functions.getUserFromDb },
   { name: "db", value: new (require("./classes/db.js"))() },
   { name: "getAllGuildData", value: functions.getAllGuildData },
-  { name: "changeSettings", value: functions.changeSettings }
+  { name: "changeSettings", value: functions.changeSettings },
+  { name: "cachedPrefixs", value: {} },
+  {
+    name: "commandCount",
+    value: functions.commandCount
+  },
+  { name: "owners", value: ["606279329844035594"] }
 ].map(x => (client[x.name] = x.value));
 mongo.connect(config.uri, {
   useUnifiedTopology: true,
   useNewUrlParser: true
 });
-["economy", "leveling", "general", "config", "cards"].map(dir => {
+["economy", "leveling", "general", "config", "cards", "owner"].map(dir => {
   console.log(`[Command] loading ${dir}`);
   require(`./commands/${dir}.js`);
 });

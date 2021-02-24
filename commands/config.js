@@ -29,6 +29,8 @@ pcmd(
       by: { guild: ctx.message.guild.id },
       newValue: prefix.toLowerCase() === "default" ? "bo." : prefix
     });
+    let cache = cachedPrefixs
+    cache[message.guild.id] = prefix.toLowerCase() === "default" ? "bo." : prefix
     return await createMessage(
       ctx,
       createEmbed({
