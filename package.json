@@ -10,7 +10,10 @@
     "discord.js": "^12.5.1",
     "fs": "^0.0.2",
     "mongoose": "^5.11.17",
-    "module-alias": "^2.2.2"
+    "module-alias": "^2.2.2",
+    "nodelua": "^0.3.3",
+    "canvas": "^2.6.1",
+    "node-canvas-with-twemoji-and-discord-emoji": "^1.1.8"
   },
   "engines": {
     "node": "12.x"
@@ -18,6 +21,7 @@
   "_moduleAliases": {
     "@db.guild": "./models/guild.js",
     "@db.user": "./models/user.js",
-    "@functions.commands": "./functions/commands.js"
+    "@functions.commands": "./functions/commands.js",
+    "@functions.canvas": "./functions/canvas.js"
   }
 }

@@ -6,7 +6,6 @@ let userSchema = new Schema({
   xp: { type: Number, default: 0 },
   level: { type: Number, default: 1 },
   totalXp: { type: Number, default: 0 },
-  xpToLevelUp: { type: Number, default: 0 },
-  cooldowns: { type: Object, default: { xp: 0 } }
+  xpToLevelUp: { type: Number, default: 300 }
 });
 module.exports = model("Users", userSchema);

@@ -1,7 +1,7 @@
 module.exports = async (client, oldMsg, message) => {
   let Discord = require("discord.js");
   try {
-    if (message.author || message.author.bot || message.channel.type === "dm") return;
+    if (!message.author || message.member.bot || message.channel.type === "dm") return;
     let prefix = await client.getPrefix({ client }, message.guild.id);
     let args = message.content
       .slice(prefix.length)
