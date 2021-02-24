@@ -9,9 +9,6 @@ module.exports = {
       }
     } else {
       let m = await ctx.channel.send(content);
-      let newResponses = ctx.client.responses.get(ctx.message.author.id) || [];
-      newResponses.unshift({ user: ctx.message.id, bot: m.id });
-      ctx.client.responses.set(ctx.message.author.id, newResponses);
       return m;
     }
   },
@@ -21,7 +18,8 @@ module.exports = {
   async getPrefix(ctx, guildId) {
     let data = require("@db.guild");
     let fetched = await ctx.client.db.findInstance({ guild: guildId }, data);
-    if(!fetched) fetched = await ctx.client.db.create({guild: guildId}, data)
+    if (!fetched)
+      fetched = await ctx.client.db.create({ guild: guildId }, data);
     return fetched.prefix;
   },
   async getUserFromDb(ctx, userId) {
@@ -42,8 +40,8 @@ module.exports = {
     const canvas = Canvas.createCanvas(1000, 333);
     const ctx = canvas.getContext("2d");
     const font = "Manrope";
-    let { roundRect, canvasUsername } = require("@functions.canvas")
-    let RankData = context.client.getUserFromDb(user.id)
+    let { roundRect, canvasUsername } = require("@functions.canvas");
+    let RankData = context.client.getUserFromDb(user.id);
     ctx.fillStyle = "#282a2c";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -72,12 +70,7 @@ module.exports = {
     ctx.closePath();
 
     ctx.beginPath();
-    ctx.fillRect(
-      69,
-      230,
-      (100 / RankData.requiredXP) * RankData.xp * 6.4,
-      58
-    );
+    ctx.fillRect(69, 230, (100 / RankData.requiredXP) * RankData.xp * 6.4, 58);
     ctx.arc(
       69 + (100 / RankData.requiredXP) * RankData.xp * 6.4 - 1,
       259,

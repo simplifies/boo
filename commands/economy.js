@@ -31,4 +31,10 @@ cmd("bal", "balance", async ctx => {
       ]
     })
   );
-});
+}).help({
+  name: "bal",
+  description: "Sends a users balance",
+  aliases:["balance"],
+  usage:"[user]",
+  category:"economy"
+})

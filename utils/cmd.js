@@ -45,10 +45,8 @@ const buildTree = (args, perms) => {
   });
 
   const chain = {
-    access: arg => {
-      cursors.map(x => {
-        x._access = arg;
-      });
+    help: helpInfo => {
+      cursors.map(x => (x.help = helpInfo));
       return chain;
     }
   };
@@ -89,5 +87,6 @@ module.exports = {
   cmd,
   pcmd,
   rct,
-  trigger
+  trigger,
+  tree
 };

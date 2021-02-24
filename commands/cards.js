@@ -8,7 +8,7 @@ cmd("view", "cards", "collection", async ctx => {
   let user = await getUser(ctx);
   let userData = await getUserFromDb(ctx, user.id);
   if (!userData.cards.length)
-    return await createMessage(ctx, "You have no commands");
+    return await createMessage(ctx, "You have no cards");
   await createMessage(
     ctx,
     createEmbed({
@@ -23,4 +23,10 @@ cmd("view", "cards", "collection", async ctx => {
         .join("\n")}`
     })
   );
+}).help({
+  name: "cards",
+  description: "View a users collection",
+  aliases: ["collection", "view"],
+  usage: "[user]",
+  category: "cards"
 });
