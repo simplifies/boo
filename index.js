@@ -49,3 +49,4 @@ db.once("open", () => console.log("DB connected"));
   require(`./handler/${handler}`)(client);
 });
 client.login(config.token);
+module.exports = client;

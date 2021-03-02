@@ -6,6 +6,8 @@ let userSchema = new Schema({
   xp: { type: Number, default: 0 },
   level: { type: Number, default: 1 },
   totalXp: { type: Number, default: 0 },
-  xpToLevelUp: { type: Number, default: 300 }
+  xpToLevelUp: { type: Number, default: 300 },
+  parts: { type: Array, default: [] },
+  dailyCooldown: { type: String }
 });
 module.exports = model("Users", userSchema);

@@ -38,3 +38,12 @@ cmd("bal", "balance", async ctx => {
   usage:"[user]",
   category:"economy"
 })
+cmd("shop", "store", async ctx => {
+ 
+}).help({
+  name: "shop",
+  description: "Sends the store",
+  aliases:["store"],
+  usage:"",
+  category:"economy"
+})
