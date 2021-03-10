@@ -64,7 +64,7 @@ cmd("rank", "rankcard", async ctx => {
   context.textAlign = "center";
   context.fillText(
     RankData.level >= 1000
-      ? `${(RankData.level / 1000).toPrecision(3)}k`
+      ? `${(RankData.level / 1000).toPrecision(1)}k`
       : `${RankData.level}`,
     620,
     75
@@ -81,11 +81,11 @@ cmd("rank", "rankcard", async ctx => {
   context.fillText(
     `${
       RankData.xp >= 1000
-        ? (RankData.xp / 1000).toPrecision(4) + "k"
+        ? (RankData.xp / 1000).toPrecision(1) + "k"
         : RankData.xp
     } / ${
       RankData.level * 300 >= 1000
-        ? ((RankData.level * 300) / 1000).toPrecision(2) + "k"
+        ? ((RankData.level * 300) / 1000).toPrecision(1) + "k"
         : RankData.xpToLevelUp
     }`,
     620,

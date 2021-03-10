@@ -1,9 +1,8 @@
 let { MessageEmbed } = require("discord.js");
 module.exports = {
   async createMessage(ctx, content, ops = {}) {
-      let m = await ctx.channel.send(content);
-      return m;
-
+    let m = await ctx.channel.send(content);
+    return m;
   },
   createEmbed(ops = {}) {
     return new MessageEmbed({ ...ops });
