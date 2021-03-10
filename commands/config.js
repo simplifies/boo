@@ -24,20 +24,19 @@ pcmd(
           description: `This servers current prefix is \`${guildPrefix}\``
         })
       );
+    prefix = prefix.toLowerCase() === "default" ? "bo." : prefix;
     await db.set("prefix", {
       model: require("@db.guild"),
       by: { guild: ctx.message.guild.id },
-      newValue: prefix.toLowerCase() === "default" ? "bo." : prefix
+      newValue: prefix
     });
-    let cache = cachedPrefixs
-    cache[message.guild.id] = prefix.toLowerCase() === "default" ? "bo." : prefix
+    let cache = cachedPrefixs;
+    cache[message.guild.id] = prefix;
     return await createMessage(
       ctx,
       createEmbed({
         color,
-        description: `New prefix \`${
-          prefix.toLowerCase() === "default" ? "bo." : prefix
-        }\``
+        description: `New prefix \`${prefix}\``
       })
     );
   }

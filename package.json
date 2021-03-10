@@ -19,7 +19,8 @@
     "ejs": "^3.1.6",
     "gif-extract-frames": "^1.0.2",
     "gif-frames": "^1.0.1",
-    "gifencoder": "^2.0.1"
+    "gifencoder": "^2.0.1",
+    "reconlx": "^1.1.1"
   },
   "engines": {
     "node": "12.x"

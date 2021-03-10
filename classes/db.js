@@ -31,5 +31,10 @@ class db {
     let data = await model.findOne(by);
     return data || undefined;
   }
+  async deleteInstance(by, model) {
+    if (!by) throw new Error("Please include a by");
+    if (!model) throw new Error("Please include a model");
+    await model.findOneAndDelete(by);
+  }
 }
 module.exports = db;
