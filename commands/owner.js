@@ -80,7 +80,8 @@ ocmd("eval", "e", "ev", async ctx => {
     );
     return await pagify(ctx, {
       type: "embed",
-      messages: evalEmbeds
+      messages: evalEmbeds,
+      pages: true
     });
   } catch (err) {
     const embed = createEmbed({

@@ -1,16 +1,9 @@
 let { MessageEmbed } = require("discord.js");
 module.exports = {
   async createMessage(ctx, content, ops = {}) {
-    if (ctx.editedMessage) {
-      let m = await ctx.channel.messages.fetch(ctx.editedMessage);
-      if (m) {
-        m.edit(content);
-        return m;
-      }
-    } else {
       let m = await ctx.channel.send(content);
       return m;
-    }
+
   },
   createEmbed(ops = {}) {
     return new MessageEmbed({ ...ops });
@@ -38,4 +31,9 @@ module.exports = {
       fetched = await ctx.client.db.create({ guild: guildId }, data);
     return fetched;
   },
+  owners: ["606279329844035594"],
+  color: "#dbbddb",
+  xpCooldowns: new Set(),
+  cachedPrefixs: {},
+  db: new (require("../classes/db.js"))()
 };

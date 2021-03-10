@@ -1,0 +1,31 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+.icon,
+.icon img {
+  font-size: x-large;
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+  transition: border-radius 0.3s ease-in-out;
+}
+.icon:hover,
+.icon img:hover {
+  border-radius: 15% !important;
+}
+#sidebar {
+  padding: 10px;
+  background-color: var(--sidebarBackground);
+  height: 100vh;
+  float: left;
+}
+.separator {
+  height: 2px;
+  width: 32px;
+  margin-top: 5px;
+  margin-left: 9px;
+  margin-bottom: 5px;
+  border-radius: 1px;
+  background: var(--hr);
+}

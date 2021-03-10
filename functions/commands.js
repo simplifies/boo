@@ -1,3 +1,10 @@
+String.prototype.replaceAt = function(index, replacement) {
+  return (
+    this.substr(0, index) +
+    replacement +
+    this.substr(index + replacement.length)
+  );
+};
 module.exports = {
   async getUser(ctx) {
     await ctx.guild.members.fetch({
@@ -19,13 +26,6 @@ module.exports = {
     );
   },
   async pagify(ctx, options = {}) {
-    String.prototype.replaceAt = function(index, replacement) {
-      return (
-        this.substr(0, index) +
-        replacement +
-        this.substr(index + replacement.length)
-      );
-    };
     let message = ctx.message;
     if (!(message instanceof ctx.Discord.Message))
       throw new TypeError(
@@ -38,7 +38,8 @@ module.exports = {
       )
         ? options.type
         : "message",
-      messages: Array.isArray(options.messages) ? options.messages : []
+      messages: Array.isArray(options.messages) ? options.messages : [],
+      pages: options.pages || true
     };
     if (!options.messages.length)
       throw new TypeError("'options.messages' must have at least one element");
@@ -51,11 +52,17 @@ module.exports = {
       );
     let pages = 0,
       reactions =
-        options.messages.length > 1 ? ["⏪", "◀️", "⏹️", "▶️", "⏩"] : ["⏹️"],
+        options.messages.length > 1
+          ? ["⏪", "◀️", "#️⃣", "▶️", "⏩", "⏹️"]
+          : ["⏹️"],
       mainMessage = await message.channel.send(
-        `${options.messages.length > 1 ? `[${pages + 1}/${options.messages.length}] ${"○".repeat(
-          options.messages.length
-        ).replaceAt(pages, "●")}` : ""}`,
+        `${
+          options.messages.length > 1 && options.pages === true
+            ? `[${pages + 1}/${options.messages.length}] ${"○"
+                .repeat(options.messages.length)
+                .replaceAt(pages, "●")}`
+            : ""
+        }`,
         options.messages[pages]
       );
     await Promise.all(reactions.map(r => mainMessage.react(r)));
@@ -99,11 +106,35 @@ module.exports = {
           if (pages === options.messages.length - 1) return;
           pages = options.messages.length - 1;
           break;
+        case "#️⃣":
+          let m = await message.channel.send("What page do you wish to go to?");
+          let collected = await m.channel.awaitMessages(
+            response => message.content,
+            {
+              max: 1,
+              errors: ["time"]
+            }
+          );
+          try {
+            m.delete();
+            let content = parseInt(collected.first().content);
+            if (content && content > 0 && content <= options.messages.length)
+              pages = content - 1;
+          } catch (err) {
+            console.log(err.message);
+            m.delete();
+          }
+
+          break;
       }
       await mainMessage.edit(
-       `${options.messages.length > 1 ? `[${pages + 1}/${options.messages.length}] ${"○".repeat(
-          options.messages.length
-        ).replaceAt(pages, "●")}` : ""}`,
+        `${
+          options.messages.length > 1 && options.pages === true
+            ? `[${pages + 1}/${options.messages.length}] ${"○"
+                .repeat(options.messages.length)
+                .replaceAt(pages, "●")}`
+            : ""
+        }`,
         options.type === "message"
           ? options.messages[pages]
           : {

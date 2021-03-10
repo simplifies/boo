@@ -59,7 +59,7 @@ cmd("ping", "pong", async ctx => {
 cmd("help", "h", async ctx => {
   let {
     client: { createMessage, createEmbed, color },
-    commandFunctions: { multiDimensionalUnique, pagify }
+    commandFunctions: { pagify }
   } = ctx;
   let commands = tree["cmd"];
   let command = commands[ctx.args[0]];
@@ -80,13 +80,18 @@ cmd("help", "h", async ctx => {
     });
     return await createMessage(ctx, embed);
   } else {
-    let pages = [];
+    let pages = [
+      createEmbed({ color, title: "Help menu" })
+        .setThumbnail(ctx.client.user.avatarURL({ format: "png" }))
+        .setDescription(
+          `Welcome to the ~~horrible~~ amazing help menu for ${ctx.client.user.username}\n\n**Reactions**\n⏪ - Goes to the last page of the help menu\n◀️ - Goes back one page on the help embed\n⏹️ - Stops the collection of reactions for the help embed\n▶️ - Goes forward one page on the help embed\n⏩ - Goes to the last page on the help embed`
+        )
+    ];
     let cats = [
       ...new Set(
         Object.values(commands).map(({ help: { category } }) => category)
       )
-    ];
-    
+    ]
     cats
       .map(cat =>
         [
