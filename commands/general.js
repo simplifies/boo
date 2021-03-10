@@ -67,17 +67,15 @@ cmd("help", "h", async ctx => {
     let embed = createEmbed({ color });
     embed.setTitle("Command help");
     embed.setThumbnail(ctx.client.user.avatarURL({ format: "png" }));
-    Object.keys(command.help).map((cmd, i) => {
-      if (Object.values(command.help)[i])
+    for (let [K, V] of Object.entries(command.help)) {
+      if (V) {
         embed.addField(
-          cmd.toProperCase(),
-          `${
-            typeof Object.values(command.help)[i] === "string"
-              ? Object.values(command.help)[i]
-              : Object.values(command.help)[i].join(" | ")
-          }`
+          K.toProperCase(),
+          typeof V === "string" ? V : V.join(" | ")
         );
-    });
+      }
+    }
+
     return await createMessage(ctx, embed);
   } else {
     let pages = [
@@ -91,7 +89,7 @@ cmd("help", "h", async ctx => {
       ...new Set(
         Object.values(commands).map(({ help: { category } }) => category)
       )
-    ]
+    ];
     cats
       .map(cat =>
         [
