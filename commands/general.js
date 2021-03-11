@@ -68,14 +68,12 @@ cmd("help", "h", async ctx => {
     embed.setTitle("Command help");
     embed.setThumbnail(ctx.client.user.avatarURL({ format: "png" }));
     for (let [K, V] of Object.entries(command.help)) {
-      if (V) {
-        embed.addField(
-          K.toProperCase(),
-          typeof V === "string" ? V : V.join(" | ")
-        );
-      }
+      if (!V) continue;
+      embed.addField(
+        K.toProperCase(),
+        typeof V === "string" ? V : V.join(" | ")
+      );
     }
-
     return await createMessage(ctx, embed);
   } else {
     let pages = [
